@@ -1,0 +1,17 @@
+version: '3'
+services:
+  gran-rstudio:
+    container_name: gran-docker-rstudio
+    build:
+      context: .
+      dockerfile: Dockerfile.rstudio
+    ports:
+      - "8080:8080"
+      - "8000:8000"
+      - "8787:8787"
+    networks:
+      - gran-rstudio-network
+
+networks:
+  gran-rstudio-network:
+    driver: bridge

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>GRAN</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="repoparams.json" ></script>
+
+	<body role="document">
+		<nav class="navbar navbar-inverse" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+					<a class="pull-left" href="#"><img src="logo.png" alt="GRAN"></a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="#">Home</a></li>
+						<li><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" role="button">Continuous Integration <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="http://localhost:8080/job/add-pkg/build?delay=0sec">Add package to GRAN</a></li>
+								<li><a href="http://localhost:8080/job/rebuild-pkg/build?delay=0sec">Rebuild existing GRAN package</a></li>
+								<li class="divider"></li>
+								<li><a href="http://localhost:8080/job/suspend-pkg/build?delay=0sec">Suspend GRAN package</a></li>
+								<li><a href="http://localhost:8080/job/unsuspend-pkg/build?delay=0sec">Restore GRAN package</a></li>
+								<li class="divider"></li>
+								<li><a href="http://localhost:8080/job/build-repo/">Build GRAN repository</a></li>
+								<li><a href="http://localhost:8080/job/clear-repo/">Clear GRAN repository</a></li>
+							</ul>
+						</li>
+
+						<li id="buildreportlink"></li>
+
+						<script>
+						var baseurl = repoparams.GRAN_REPO_DEST_BASE_URL;
+						var reponame = repoparams.GRAN_REPO_NAME;
+						document.getElementById("buildreportlink").innerHTML = "<a role=\"button\" href=" + baseurl + "/" + reponame + "/src/contrib/buildreport.html" + ">Repo Build Report</a>";</script>
+						
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div class="container">
+			<main role="main">
+				<div class="row">
+					<div class="jumbotron">
+						<h1>Welcome to GRAN!</h1>
+						<p>GRAN is an internal R package build system and repository, similar to CRAN and Bioconductor.</p>
+					</div>
+				</div>
+
+				<div class="row doc-main">
+					<h2>GRAN Repo Parameters</h2>
+
+					<hr/>
+
+					<p id="granparams"></p>
+					<script>
+					// Display repo parameters
+					$.each(repoparams, function(k, v) {
+						$('#granparams').append('<b>' + k + '</b>' + ' = ' + v + '<br />');
+					});
+				  </script>
+
+				</div>
+
+    </div>
+	</body>
+</html>

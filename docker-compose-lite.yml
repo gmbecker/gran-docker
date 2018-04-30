@@ -1,0 +1,16 @@
+version: '3'
+services:
+  gran-lite:
+    container_name: gran-docker-lite
+    build:
+      context: .
+      dockerfile: Dockerfile.lite
+    ports:
+      - "8080:8080"
+      - "8000:8000"
+    networks:
+      - gran-lite-network
+
+networks:
+  gran-lite-network:
+    driver: bridge
