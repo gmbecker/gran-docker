@@ -100,4 +100,4 @@ See the [LICENSE.md](LICENSE.md) file for details.
 
 ## Support
 
-Please contact <resgran-d@gene.com> to report issues, questions or concerns. Any feedback is greatly appreciated.
+Please file issues at https://github.com/gmbecker/gran-docker to report issues, questions or concerns. Any feedback is greatly appreciated.
