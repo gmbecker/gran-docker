@@ -80,7 +80,7 @@ if (havepkg && !replace) {
     "This package was already in the manifest for this repository, skipping. Set replace to TRUE to replace existing package."
   )
 } else {
-  repo_results(repo) = repo_results(repo)[, names(GRANBase:::ResultsRow())]
+  repo_results(repo) = repo_results(repo)[, names(ResultsRow())]
   man = manifest(repo)
   if (havepkg && replace) {
     codir = file.path(checkout_dir(repo), pkg)

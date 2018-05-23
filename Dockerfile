@@ -5,6 +5,11 @@ MAINTAINER "Dinakar Kulkarni" kulkard2@gene.com
 ARG JENKINS_CONFIG_DIR=customization/jenkins
 ARG GRAN_CONFIG_DIR=customization/GRANBase
 
+# Convert all the http apt sources to https
+#RUN sed -i s_http:/_https:/_g /etc/apt/sources.list
+
+#RUN for filename in /etc/apt/sources.list.d/*; do sed -i s_http:/_https:/_g "$filename"; done
+
 # Install Apache and Jenkins
 RUN apt-get upgrade -y && \
   apt-get update && \
@@ -24,9 +29,10 @@ RUN apt-get upgrade -y && \
   texlive-fonts-extra \
   libssh2-1-dev \
   subversion \
-  default-jre default-jdk && \
+  default-jre default-jdk \
+  apt-transport-https && \
   if [ ! -f /usr/bin/python ]; then ln -s /usr/bin/python3 /usr/bin/python; fi && \
-  sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list' && \
+  sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list' && \
   apt-get update && \
   apt-get install -y --allow-unauthenticated jenkins
 
@@ -71,7 +77,7 @@ COPY $GRAN_CONFIG_DIR/*.sh /var/scripts/
 
 # Install switchr and GRANBase
 RUN R -e 'install.packages("devtools", repos = "https://cran.rstudio.com/", dependencies = TRUE, Ncpus = parallel::detectCores())' && \
-  R -e 'devtools::install_github(c("gmbecker/switchr", "gmbecker/gRAN"), Ncpus = parallel::detectCores())'
+  R -e 'devtools::install_github(c("gmbecker/switchr", "gmbecker/GRANCore", "gmbecker/gRAN"), Ncpus = parallel::detectCores())'
 
 # Install Tex
 #COPY customization/texlive.profile texlive.profile
